@@ -1,0 +1,30 @@
+syntax = "v1"
+
+type Request {
+	Name string `path:"name,options=you|me"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+
+type LoginRequest {
+	Account string `json:"account"`
+	Password string `json:"password"`
+}
+
+type LoginResponse {
+	AccessToken string `form:"access_token"`
+	UserName string `form:"user_name"`
+}
+
+@server (
+	prefix: /auth/v1
+)
+service auth-api {
+	@handler AuthHandler
+	get /from/:name (Request) returns (Response)
+
+	@handler LoginHandler
+	post /login (LoginRequest) returns (LoginResponse)
+}
