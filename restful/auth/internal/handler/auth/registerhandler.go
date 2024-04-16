@@ -1,24 +1,24 @@
-package handler
+package auth
 
 import (
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
-	"kapibara-apigateway-gozero/restful/auth/internal/logic"
+	"kapibara-apigateway-gozero/restful/auth/internal/logic/auth"
 	"kapibara-apigateway-gozero/restful/auth/internal/svc"
 	"kapibara-apigateway-gozero/restful/auth/internal/types"
 )
 
-func AuthHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
+func RegisterHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.Request
+		var req types.RegisterRequest
 		if err := httpx.Parse(r, &req); err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 			return
 		}
 
-		l := logic.NewAuthLogic(r.Context(), svcCtx)
-		resp, err := l.Auth(&req)
+		l := auth.NewRegisterLogic(r.Context(), svcCtx)
+		resp, err := l.Register(&req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

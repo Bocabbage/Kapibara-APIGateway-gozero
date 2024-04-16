@@ -1,0 +1,32 @@
+
+
+@server(
+	group: mikanani
+	prefix: /mikanani/v2/anime
+	timeout: 60s
+)
+service mikanani-api {
+	@handler ListAnimeMeta
+	get /list-meta
+    
+    @handler GetAnimeDoc
+	get /doc
+    
+    @handler UpdateAnimeDoc
+	put /update-doc
+    
+    @handler UpdateAnimeMeta
+    put /update-meta
+    
+    @handler InsertAnimeItem
+	post /insert
+    
+    @handler DeleteAnimeItem
+	delete /delete
+
+    @handler GetAnimeImage
+	get /pics/:uid
+
+    @handler PostAnimeImage
+    post /pics/upload/:uid
+}

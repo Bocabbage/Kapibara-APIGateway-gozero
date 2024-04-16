@@ -3,7 +3,9 @@ package handler
 
 import (
 	"net/http"
+	"time"
 
+	auth "kapibara-apigateway-gozero/restful/auth/internal/handler/auth"
 	"kapibara-apigateway-gozero/restful/auth/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -13,10 +15,17 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
-				Path:    "/from/:name",
-				Handler: AuthHandler(serverCtx),
+				Method:  http.MethodPost,
+				Path:    "/login",
+				Handler: auth.LoginHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/register",
+				Handler: auth.RegisterHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/auth/v1"),
+		rest.WithTimeout(60000*time.Millisecond),
 	)
 }
