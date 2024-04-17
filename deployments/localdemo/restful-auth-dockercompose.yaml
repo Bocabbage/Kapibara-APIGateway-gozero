@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  auth:
+    build:
+      context: ../../
+      dockerfile: ./restful/auth/Dockerfile
+    restart: on-failure
+    ports:
+      - "5678:443"
+    depends_on:
+      - "mysqldb"
+    networks:
+      - "kapibara-testnet"
+    volumes:
+      - ./cert/bocabbage.test.crt:/etc/ssl/certs/bocabbage.test.crt
+      - ./cert/bocabbage.testserver.key:/etc/ssl/private/bocabbage.testserver.key
+    command: ["./restful-auth", "-f", "etc/auth-api-localdemo.yaml"]
+    # command: ["tail", "-f", "/dev/null"]
+    container_name: "kapibara-apigateway-gozero-restful-auth"
+  mysqldb:
+    image: "mysql:latest"
+    container_name: "db-mysql0"
+    build:
+      context: .
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "test_kapibara_root_pwd"
+      MYSQL_DATABASE: "auth_test_db0"
+      MYSQL_USER: "test_kapibara"
+      MYSQL_PASSWORD: "test_kapibara_pwd"
+    networks:
+      - "kapibara-testnet"
+    volumes:
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+  # rediscache:
+  #   image: "redis:latest"
+  #   container_name: "cache-redis0"
+  #   ports:
+  #     - "6379:6379"
+  #   environment:
+  #     NEW_REDIS_PASSWORD: "test_kapibara_pwd"
+  #   networks:
+  #     - "kapibara-testnet"
+  #   command: ["redis-server", "--requirepass", "${NEW_REDIS_PASSWORD}"]
+
+networks:
+  kapibara-testnet:
+    driver: "bridge"

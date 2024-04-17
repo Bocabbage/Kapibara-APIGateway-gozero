@@ -29,7 +29,7 @@ func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 				Value:    resp.AccessToken,
 				MaxAge:   int(svcCtx.Config.JwtExpired),
 				Path:     "/",
-				Domain:   svcCtx.Config.ServerDomain,
+				Domain:   svcCtx.Config.CookieServerDomain,
 				Secure:   true,
 				HttpOnly: true,
 				SameSite: http.SameSiteNoneMode,

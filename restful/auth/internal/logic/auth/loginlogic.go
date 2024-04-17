@@ -61,7 +61,7 @@ func (l *LoginLogic) Login(req *types.LoginRequest) (resp *types.LoginResponse, 
 	jwtToken, err := utils.GenerateJWT(
 		sqlRes.RoleBitmap, sqlRes.UserName, sqlRes.Account,
 		l.svcCtx.Config.JwtExpired,
-		l.svcCtx.Config.MySQLPwdSalt,
+		l.svcCtx.Config.MySQLRoleSalt,
 		l.svcCtx.Config.JwtSecretKey,
 	)
 	if err != nil {

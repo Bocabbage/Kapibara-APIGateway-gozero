@@ -1,0 +1,20 @@
+# ServiceConf
+Name: auth-api
+# RestConf
+Mode: dev
+Host: 0.0.0.0
+Port: 443
+# CertFile: /etc/ssl/certs/bocabbage.test.crt
+# KeyFile: /etc/ssl/private/bocabbage.testserver.key
+# MySQLConfig
+MySQLConnStr: test_kapibara:test_kapibara_pwd@tcp(mysqldb:3306)/auth_test_db0 
+MySQLRoleSalt: 42
+# JwtConfig
+JwtExpired: 3600
+JwtSecretKey: test_jwtsecret
+# CookieConfig
+CookieServerDomain: kapibara.local.com
+# CorsConfig
+AllowedOrigins: ["*"]
+AllowedMethods: ["GET", "POST", "PUT", "DELETE"]
+AllowedHeaders: ["Content-Type"]

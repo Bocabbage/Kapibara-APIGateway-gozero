@@ -1,14 +1,13 @@
 package config
 
 import (
-	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/rest"
 )
 
 type MySQLConfig struct {
-	MySQLConnStr     string
-	MySQLPwdSalt     int64
-	MySQLCacheConfig cache.CacheConf
+	MySQLConnStr  string
+	MySQLRoleSalt int64
+	// MySQLCacheConfig cache.CacheConf
 }
 
 type JWTConfig struct {
@@ -16,17 +15,20 @@ type JWTConfig struct {
 	JwtSecretKey string
 }
 
-type ServerConfig struct {
-	ServerAddr   string
-	ServerPort   string
-	ServerDomain string
-	CertFile     string
-	KeyFile      string
+type CookieConfig struct {
+	CookieServerDomain string
+}
+
+type CorsConfig struct {
+	AllowedOrigins []string
+	AllowedMethods []string
+	AllowedHeaders []string
 }
 
 type Config struct {
 	rest.RestConf
 	MySQLConfig
 	JWTConfig
-	ServerConfig
+	CookieConfig
+	CorsConfig
 }
