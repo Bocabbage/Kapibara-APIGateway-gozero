@@ -1,25 +1,22 @@
-FROM golang:alpine AS builder
+FROM golang:1.21 AS builder
 
 LABEL stage=gobuilder
 
 ENV CGO_ENABLED 0
 ENV GOPROXY https://goproxy.cn,direct
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-
-RUN apk update --no-cache && apk add --no-cache tzdata
 
 WORKDIR /build
 
 ADD go.mod .
 ADD go.sum .
-RUN go mod download
+RUN go mod tidy
 COPY . .
 COPY restful/auth/etc /app/etc
 RUN go build -ldflags="-s -w" -o /app/restful-auth restful/auth/auth.go
 
 
 # FROM scratch
-FROM ubuntu
+FROM ubuntu:22.04
 
 WORKDIR /app
 COPY --from=builder /app/restful-auth /app/restful-auth
