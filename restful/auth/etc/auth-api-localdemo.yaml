@@ -1,13 +1,13 @@
 # ServiceConf
 Name: auth-api
 # RestConf
-Mode: dev
+# Mode: dev
 Host: 0.0.0.0
 Port: 443
-# CertFile: /etc/ssl/certs/bocabbage.test.crt
-# KeyFile: /etc/ssl/private/bocabbage.testserver.key
+CertFile: /etc/ssl/certs/bocabbage.test.crt
+KeyFile: /etc/ssl/private/bocabbage.testserver.key
 # MySQLConfig
-MySQLConnStr: test_kapibara:test_kapibara_pwd@tcp(mysqldb:3306)/auth_test_db0 
+MySQLConnStr: test_kapibara:test_kapibara_pwd@tcp(mysqldb:3306)/auth_test_db0?parseTime=True&loc=Local
 MySQLRoleSalt: 42
 # JwtConfig
 JwtExpired: 3600

@@ -4,7 +4,7 @@ type (
 	LoginRequest {
 		Account  string `form:"account"`
 		Password string `form:"password"`
-		TraceId  string `header:"Trace-id"`
+		TraceId  string `header:"Trace-Id"`
 	}
 	LoginResponse {
 		AccessToken string `json:"access_token"`
@@ -18,7 +18,7 @@ type (
 		Account  string `form:"account"`
 		Password string `form:"password"`
 		Username string `form:"username"`
-		TraceId  string `header:"Trace-id"`
+		TraceId  string `header:"Trace-Id"`
 	}
 	RegisterResponse {
 		Message string

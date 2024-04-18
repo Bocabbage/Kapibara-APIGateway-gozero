@@ -4,7 +4,7 @@ package types
 type LoginRequest struct {
 	Account  string `form:"account"`
 	Password string `form:"password"`
-	TraceId  string `header:"Trace-id"`
+	TraceId  string `header:"Trace-Id"`
 }
 
 type LoginResponse struct {
@@ -17,7 +17,7 @@ type RegisterRequest struct {
 	Account  string `form:"account"`
 	Password string `form:"password"`
 	Username string `form:"username"`
-	TraceId  string `header:"Trace-id"`
+	TraceId  string `header:"Trace-Id"`
 }
 
 type RegisterResponse struct {
